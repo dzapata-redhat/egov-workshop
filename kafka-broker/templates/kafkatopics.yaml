@@ -1,0 +1,26 @@
+{{- range .Values.topics }}
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: {{ .name }}
+  labels:
+    argocd.argoproj.io/sync-wave: "3"
+    strimzi.io/cluster: {{ .kafkaCluster | default $.Values.defaultKafkaCluster }}
+    {{- include "kafka-topic-chart.labels" $ | nindent 4 }}
+    {{- with $.Values.globalLabels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+    {{- with .labels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- with .annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  partitions: {{ .partitions }}
+  replicas: {{ .replicas }}
+  config:
+    {{- toYaml .config | nindent 4 }}
+{{- end }}

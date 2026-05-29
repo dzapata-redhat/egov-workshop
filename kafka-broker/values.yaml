@@ -1,0 +1,17 @@
+globalLabels:
+  environment: dev
+  managed-by: helm
+defaultKafkaCluster: kafka-cluster
+topics:
+  - name: adjustbalance-dev
+    partitions: 1
+    replicas: 3
+    config:
+      retention.ms: 604800000
+      segment.bytes: 1073741824
+  - name: adjustmentstf-dev
+    partitions: 10
+    replicas: 3
+    config:
+      retention.ms: 604800000
+      segment.bytes: 1073741824
