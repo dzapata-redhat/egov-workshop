@@ -1,0 +1,29 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../base
+  - 05.active-mq-artemis-address.yaml
+
+patches:
+  - target:
+      kind: Namespace
+      name: amq
+    patch: |-
+      - op: replace
+        path: /metadata/annotations/openshift.io~1description
+        value: 'AMQ Broker'
+      - op: replace
+        path: /metadata/annotations/openshift.io~1display-name
+        value: 'AMQ'
+      - op: remove
+        path: /metadata/annotations/scheduler.alpha.kubernetes.io~1defaultTolerations
+  - target:
+      kind: ActiveMQArtemis
+      name: broker-persistent
+    patch: |-
+      - op: add
+        path: /spec/brokerProperties/-
+        value: metricsConfiguration.jvmGc=true
+      - op: add
+        path: /spec/brokerProperties/-
+        value: metricsConfiguration.jvmThread=true

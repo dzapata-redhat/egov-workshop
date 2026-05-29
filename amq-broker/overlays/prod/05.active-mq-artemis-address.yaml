@@ -1,0 +1,15 @@
+apiVersion: broker.amq.io/v1beta1
+kind: ActiveMQArtemisAddress
+metadata:
+  name: audit-queue
+  namespace: amq
+  annotations:
+    argocd.argoproj.io/sync-wave: "5"
+spec:
+  addressName: audit-queue
+  queueConfiguration:
+    autoCreateAddress: true
+    durable: false
+    enabled: true
+  queueName: audit-queue
+  routingType: anycast

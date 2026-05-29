@@ -1,0 +1,22 @@
+apiVersion: broker.amq.io/v1beta1
+kind: ActiveMQArtemisScaledown
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "4"
+    SERVICE_ACCOUNT: amq-broker-controller-manager
+    CLUSTERUSER: zqKbFwjv
+    SERVICE_ACCOUNT_NAME: amq-broker-controller-manager
+    CLUSTERPASS: DfGFL2Pe
+    CRNAMESPACE: amq
+    PINGSVCNAMEVALUE: broker-persistent-ping-svc
+    CRNAME: broker-persistent
+    AMQ_CREDENTIALS_SECRET_NAME: broker-persistent-credentials-secret
+    HEADLESSSVCNAMEVALUE: broker-persistent-hdls-svc
+  name: broker-persistent
+  namespace: amq
+  labels:
+    ActiveMQArtemis: broker-persistent
+    application: broker-persistent-app
+spec:
+  localOnly: false
+  resources: {}

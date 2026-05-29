@@ -1,0 +1,99 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../base
+
+namespace: amq-qa
+
+patches:
+  - target:
+      kind: Namespace
+      name: amq
+    patch: |-
+      - op: replace
+        path: /metadata/name
+        value: amq-qa
+      - op: replace
+        path: /metadata/labels/kubernetes.io~1metadata.name
+        value: amq-qa
+      - op: replace
+        path: /metadata/annotations/openshift.io~1display-name
+        value: amq-qa
+      - op: replace
+        path: /metadata/annotations/openshift.io~1node-selector
+        value: middle=qa
+      - op: replace
+        path: /metadata/annotations/scheduler.alpha.kubernetes.io~1defaultTolerations
+        value: '[{"value": "reserved", "effect": "NoSchedule", "key": "middleware-qa"}]'
+
+      - op: add
+        path: /metadata/labels/dynakube.internal.dynatrace.com~1instance
+        value: arodevqa
+  - target:
+      kind: OperatorGroup
+      name: amq
+    patch: |-
+      - op: replace
+        path: /metadata/name
+        value: amq-qa
+      - op: replace
+        path: /spec/targetNamespaces
+        value: ["amq-qa"]
+  - target:
+      kind: Subscription
+      name: amq-broker-rhel9
+    patch: |-
+      - op: add
+        path: /spec/startingCSV
+        value: amq-broker-operator.v7.13.1-opr-1-0.1758027574.p
+  - target:
+      kind: ActiveMQArtemis
+      name: broker-persistent
+    patch: |-
+      - op: replace
+        path: /metadata/name
+        value: broker-qa-persistent
+      - op: replace
+        path: /spec/deploymentPlan/size
+        value: 1
+      - op: replace
+        path: /spec/deploymentPlan/storage/storageClassName
+        value: managed-csi
+      - op: remove
+        path: /spec/deploymentPlan/enableMetricsPlugin
+  - target:
+      kind: ActiveMQArtemis
+      name: broker
+    patch: |-
+      - op: replace
+        path: /metadata/name
+        value: broker-qa
+      - op: replace
+        path: /spec/deploymentPlan/size
+        value: 1
+  - target:
+      kind: ActiveMQArtemisScaledown
+      name: broker-persistent
+    patch: |-
+      - op: replace
+        path: /metadata/name
+        value: broker-qa-persistent
+      - op: replace
+        path: /metadata/annotations
+        value: 
+          argocd.argoproj.io/sync-wave: "5"
+          SERVICE_ACCOUNT: amq-broker-controller-manager
+          CLUSTERUSER: vHwBW39P
+          SERVICE_ACCOUNT_NAME: amq-broker-controller-manager
+          CLUSTERPASS: z00fPful
+          CRNAMESPACE: amq-qa
+          PINGSVCNAMEVALUE: broker-qa-persistent-ping-svc
+          CRNAME: broker-qa-persistent
+          AMQ_CREDENTIALS_SECRET_NAME: broker-qa-persistent-credentials-secret
+          HEADLESSSVCNAMEVALUE: broker-qa-persistent-hdls-svc
+      - op: replace
+        path: /metadata/labels/ActiveMQArtemis
+        value: broker-qa-persistent
+      - op: replace
+        path: /metadata/labels/application
+        value: broker-qa-persistent-app

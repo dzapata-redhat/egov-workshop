@@ -1,0 +1,38 @@
+apiVersion: broker.amq.io/v1beta1
+kind: ActiveMQArtemis
+metadata:
+  name: broker
+  namespace: amq
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+spec:
+  acceptors:
+    - expose: false
+      name: amqp-acceptors
+      port: 5672
+      protocols: 'amqp,core'
+  brokerProperties:
+    - securityRoles.#.app.send=true
+    - securityRoles.#.app.consume=true
+    - securityRoles.#.app.createAddress=true
+    - securityRoles.#.app.createNonDurableQueue=true
+    - securityRoles.#.app.deleteNonDurableQueue=true
+    - securityRoles.#.app.createDurableQueue=true
+    - securityRoles.#.app.deleteDurableQueue=true
+    - securityRoles.#.app.deleteAddress=true
+    - securityRoles.#.admin.manage=true
+    - securityRoles.#.app.browse=true
+  console:
+    expose: false
+  deploymentPlan:
+    size: 2
+    persistenceEnabled: false
+    requireLogin: false
+    messageMigration: false
+    extraMounts:
+      secrets:
+        - properties-jaas-config #Se debe crear un secret con este nombre y con el contenido de la configuración de seguridad en formato properties
+    managementRBACEnabled: true
+    journalType: nio
+    jolokiaAgentEnabled: false
+    image: placeholder
