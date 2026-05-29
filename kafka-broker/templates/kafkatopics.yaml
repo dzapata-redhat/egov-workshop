@@ -5,7 +5,7 @@ kind: KafkaTopic
 metadata:
   name: {{ .name }}
   labels:
-    argocd.argoproj.io/sync-wave: "3"
+    argocd.argoproj.io/sync-wave: "5"
     strimzi.io/cluster: {{ .kafkaCluster | default $.Values.defaultKafkaCluster }}
     {{- include "kafka-topic-chart.labels" $ | nindent 4 }}
     {{- with $.Values.globalLabels }}

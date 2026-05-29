@@ -1,0 +1,68 @@
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaUser
+metadata:
+  labels:
+    strimzi.io/cluster: canales-kafka
+  name: user-consumer
+  namespace: amq-streams
+  annotations:
+    argocd.argoproj.io/sync-wave: "6"
+spec:
+  authentication:
+    type: scram-sha-512
+  authorization:
+    acls:
+      - host: '*'
+        operations:
+          - Read
+          - Describe
+        resource:
+          name: remdom-validations
+          patternType: literal
+          type: topic
+      - host: '*'
+        operations:
+          - Read
+          - Describe
+        resource:
+          name: '*'
+          patternType: literal
+          type: group
+      - host: '*'
+        operations:
+          - Write
+        resource:
+          name: dead-letter-topic-remdom-validations-in
+          patternType: literal
+          type: topic
+    type: simple
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaUser
+metadata:
+  labels:
+    strimzi.io/cluster: canales-kafka
+  name: user-producer
+  namespace: amq-streams
+  annotations:
+    argocd.argoproj.io/sync-wave: "6"
+spec:
+  authentication:
+    type: scram-sha-512
+  authorization:
+    acls:
+      - host: '*'
+        operations:
+          - Write
+        resource:
+          name: remdom-validations
+          patternType: literal
+          type: topic
+      - host: '*'
+        operations:
+          - Write
+        resource:
+          name: '*'
+          patternType: literal
+          type: group
+    type: simple
