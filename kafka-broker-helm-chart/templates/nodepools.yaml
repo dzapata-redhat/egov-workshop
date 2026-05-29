@@ -2,7 +2,7 @@ apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaNodePool
 metadata:
   name: controller
-  namespace: amq-streams
+  namespace: amq-stream
   labels:
     strimzi.io/cluster: {{ $.Values.defaultKafkaCluster }}
   annotations:
@@ -20,7 +20,7 @@ apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaNodePool
 metadata:
   name: kafka
-  namespace: amq-streams
+  namespace: amq-stream
   labels:
     strimzi.io/cluster: {{ $.Values.defaultKafkaCluster }}
   annotations:
@@ -32,4 +32,4 @@ spec:
     - broker
   storage:
     type: persistent-claim
-    size: 50Gi
+    size: 20Gi

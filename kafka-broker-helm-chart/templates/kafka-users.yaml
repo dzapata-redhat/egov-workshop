@@ -4,7 +4,7 @@ metadata:
   labels:
     strimzi.io/cluster: {{ $.Values.defaultKafkaCluster }}
   name: user-consumer
-  namespace: amq-streams
+  namespace: amq-stream
   annotations:
     argocd.argoproj.io/sync-wave: "6"
 spec:
@@ -43,7 +43,7 @@ metadata:
   labels:
     strimzi.io/cluster: {{ $.Values.defaultKafkaCluster }}
   name: user-producer
-  namespace: amq-streams
+  namespace: amq-stream
   annotations:
     argocd.argoproj.io/sync-wave: "6"
 spec:

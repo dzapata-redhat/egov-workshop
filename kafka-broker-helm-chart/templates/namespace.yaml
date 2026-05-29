@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: amq-streams
+  name: amq-stream
   labels:
-    kubernetes.io/metadata.name: amq-streams
+    kubernetes.io/metadata.name: amq-stream
     argocd.argoproj.io/managed-by: openshift-gitops
   annotations:
     argocd.argoproj.io/sync-wave: "0"

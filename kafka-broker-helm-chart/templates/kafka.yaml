@@ -2,7 +2,7 @@ apiVersion: kafka.strimzi.io/v1beta2
 kind: Kafka
 metadata:
   name: icta-kafka
-  namespace: amq-streams
+  namespace: amq-stream
   annotations:
     argocd.argoproj.io/sync-wave: "4"
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
