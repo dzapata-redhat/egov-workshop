@@ -1,7 +1,7 @@
 apiVersion: kafka.strimzi.io/v1beta2
 kind: Kafka
 metadata:
-  name: name
+  name: icta-kafka
   namespace: amq-streams
   annotations:
     argocd.argoproj.io/sync-wave: "4"

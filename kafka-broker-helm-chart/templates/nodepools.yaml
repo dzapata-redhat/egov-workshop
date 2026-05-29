@@ -4,7 +4,7 @@ metadata:
   name: controller
   namespace: amq-streams
   labels:
-    strimzi.io/cluster: canales-kafka
+    strimzi.io/cluster: {{ $.Values.defaultKafkaCluster }}
   annotations:
     argocd.argoproj.io/sync-wave: "3"
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
@@ -22,7 +22,7 @@ metadata:
   name: kafka
   namespace: amq-streams
   labels:
-    strimzi.io/cluster: canales-kafka
+    strimzi.io/cluster: {{ $.Values.defaultKafkaCluster }}
   annotations:
     argocd.argoproj.io/sync-wave: "3"
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true

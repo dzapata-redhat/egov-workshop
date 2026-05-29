@@ -1,7 +1,7 @@
 globalLabels:
   environment: dev
   managed-by: helm
-defaultKafkaCluster: kafka-cluster
+defaultKafkaCluster: icta-kafka
 topics:
   - name: adjustbalance-dev
     partitions: 1

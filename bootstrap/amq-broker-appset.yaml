@@ -1,0 +1,47 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: amq-broker-multicluster
+  namespace: openshift-gitops
+spec:
+  syncPolicy:
+    preserveResourcesOnDeletion: true
+#  generators:
+#    - matrix:
+#        generators:
+#          - clusterDecisionResource:
+#              configMapRef: acm-placement
+#              labelSelector:
+#                matchLabels:
+#                  cluster.open-cluster-management.io/placement: placement-amq-broker
+#              requeueAfterSeconds: 180
+#          - clusters:
+#              selector:
+#                matchLabels:
+#                  name: '{{name}}'
+  template:
+    metadata:
+      name: 'amq-broker-dev'
+    spec:
+      project: acm-policies
+      source:
+        repoURL: 'git@gitlab.com:banreservas1/proyectos-banreservas/hcs-banreservas/cluster-mgmt-declarations.git' # UPDATE REPO URL AFTER PUSHING TO GITHUB
+        targetRevision: develop
+        path: acm-gitops-multicloud/components/amq-broker/overlays/{{metadata.labels.dir}}
+      destination:
+        cluster: '{{name}}'
+        namespace: amq
+      syncPolicy:
+        automated:
+          enabled: false
+          prune: false
+          selfHeal: false
+        retry:
+          limit: 10
+          backoff:
+            duration: 10s
+            factor: 2
+            maxDuration: 3m
+        syncOptions:
+          - CreateNamespace=false
+          - SkipDryRunOnMissingResource=true

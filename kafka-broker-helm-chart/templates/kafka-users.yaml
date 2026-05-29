@@ -2,7 +2,7 @@ apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaUser
 metadata:
   labels:
-    strimzi.io/cluster: canales-kafka
+    strimzi.io/cluster: {{ $.Values.defaultKafkaCluster }}
   name: user-consumer
   namespace: amq-streams
   annotations:
@@ -41,7 +41,7 @@ apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaUser
 metadata:
   labels:
-    strimzi.io/cluster: canales-kafka
+    strimzi.io/cluster: {{ $.Values.defaultKafkaCluster }}
   name: user-producer
   namespace: amq-streams
   annotations:
