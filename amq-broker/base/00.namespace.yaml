@@ -8,5 +8,3 @@ metadata:
     argocd.argoproj.io/sync-wave: "0"
     openshift.io/description: ''
     openshift.io/display-name: ''
-    openshift.io/node-selector: middle=prod
-    scheduler.alpha.kubernetes.io/defaultTolerations: '[{"value": "reserved", "effect": "NoSchedule", "key": "middleware-prod"}]'
