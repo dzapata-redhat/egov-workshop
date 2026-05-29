@@ -5,6 +5,7 @@ metadata:
   labels:
     kubernetes.io/metadata.name: amq
   annotations:
+    argocd.argoproj.io/managed-by: openshift-gitops
     argocd.argoproj.io/sync-wave: "0"
     openshift.io/description: ''
     openshift.io/display-name: ''
