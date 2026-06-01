@@ -1,0 +1,14 @@
+{{- range .Values.namespaces }}
+---
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: {{ .operatorgroup }}
+  namespace: {{ .name }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  targetNamespaces:
+  - {{ .name }}
+  upgradeStrategy: Default
+{{- end }}

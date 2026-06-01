@@ -1,0 +1,5 @@
+namespaces:
+  - name: amq-dev
+    operatorgroup: amq-dev-og
+  - name: amq-qa
+    operatorgroup: amq-qa-og

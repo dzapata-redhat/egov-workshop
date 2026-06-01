@@ -1,0 +1,14 @@
+{{- range .Values.namespaces }}
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ .name }}
+  labels:
+    kubernetes.io/metadata.name: {{ .name }}
+    argocd.argoproj.io/managed-by: openshift-gitops
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+    openshift.io/description: ''
+    openshift.io/display-name: ''
+{{- end }}
