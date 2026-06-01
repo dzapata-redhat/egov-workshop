@@ -5,6 +5,7 @@ resources:
   - 01.operatorgroup.yaml
   - 02.subscription.yaml
   - 02.secret.yaml
+  - 02.secret-alternative.yaml
   - 03.active-mq-artemis-persistent.yaml
   - 03.active-mq-artemis.yaml
   - 04.active-mq-artemis-scale.yaml

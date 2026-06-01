@@ -31,7 +31,7 @@ spec:
     messageMigration: true
     extraMounts:
       secrets:
-        - properties-jaas-config #Se debe crear un secret con este nombre y con el contenido de la configuración de seguridad en formato properties
+        - properties-jaas-config
     managementRBACEnabled: true
     journalType: nio
     enableMetricsPlugin: true
