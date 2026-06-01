@@ -25,7 +25,7 @@ spec:
     spec:
       project: acm-policies
       source:
-        repoURL: 'git@gitlab.com:banreservas1/proyectos-banreservas/hcs-banreservas/cluster-mgmt-declarations.git' # UPDATE REPO URL AFTER PUSHING TO GITHUB
+        repoURL: 'git@gitlab.com:algunServicio/algunaVaina/cluster-mgmt-declarations.git' # UPDATE REPO URL AFTER PUSHING TO GITHUB
         targetRevision: develop
         path: acm-gitops-multicloud/components/amq-broker/overlays/{{metadata.labels.dir}}
       destination:
